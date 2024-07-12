@@ -1,6 +1,7 @@
 -- personal keymaps
 vim.api.nvim_set_keymap('i', 'kj', '<ESC>', { noremap = true })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
 
 --- Plugin Remaps --
 

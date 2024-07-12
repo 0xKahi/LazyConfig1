@@ -33,9 +33,9 @@ return {
         expander_highlight = 'NeoTreeExpander',
       },
       icon = {
-        folder_closed = '',
-        folder_open = '',
-        folder_empty = '󰜌',
+        folder_closed = '󰉋',
+        folder_open = '',
+        folder_empty = '󱞞',
         default = '*',
         highlight = 'NeoTreeFileIcon',
       },
@@ -50,15 +50,15 @@ return {
       },
       git_status = {
         symbols = {
-          added = '✚',
-          modified = '',
-          deleted = '✖',
-          renamed = '󰁕',
-          untracked = '',
-          ignored = '',
-          unstaged = '󰄱',
-          staged = '',
-          conflict = '',
+          added = '[A]',
+          modified = '[M]',
+          deleted = '[D]',
+          renamed = '[R]',
+          untracked = '[U]',
+          ignored = '',
+          unstaged = '[-S]',
+          staged = '[S]',
+          conflict = '[!]',
         },
       },
       file_size = {
@@ -139,8 +139,8 @@ return {
 
   config = function(_, opts)
     require('neo-tree').setup(opts)
-    vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-    vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
+    vim.fn.sign_define('DiagnosticSignError', { text = '󰨰', texthl = 'DiagnosticSignError' })
+    vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
     vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
     vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
   end,

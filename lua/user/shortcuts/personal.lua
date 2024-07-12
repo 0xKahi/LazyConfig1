@@ -30,3 +30,24 @@ end, {
   nargs = '?',
   desc = 'Convert px to rem',
 })
+
+local inspector = require('utils.inspector')
+vim.api.nvim_create_user_command('CheckMapping', function(opts)
+  local args = vim.split(opts.args, '%s+')
+  if #args ~= 2 then
+    print('Usage: CheckMapping <mode> <key>')
+    return
+  end
+
+  local mode, key = args[1], args[2]
+  local result = inspector.getMapping(mode, key)
+  print(result)
+end, {
+  nargs = '+',
+  complete = function(ArgLead, CmdLine, CursorPos)
+    local modes = { 'n', 'i', 'v', 'x', 's', 'o', '!', 'c', 't' }
+    return vim.tbl_filter(function(mode)
+      return mode:match('^' .. ArgLead)
+    end, modes)
+  end,
+})
