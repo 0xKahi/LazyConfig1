@@ -10,9 +10,7 @@ local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', telescope.git_files, {})
 vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
 vim.keymap.set('n', '<leader>lg', telescope.live_grep, {})
-vim.keymap.set('n', '<leader>fw', function()
-  telescope.grep_string({ search = vim.fn.input('Grep > ') })
-end)
+vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[S]earch current [W]ord' })
 
 -- Conform (Formatter)
 local conform = require('conform')
@@ -37,9 +35,15 @@ vim.keymap.set('n', '<leader>ha', harpoonUi.toggle_quick_menu)
 -- NeoTree
 vim.api.nvim_set_keymap('n', '<leader>oe', ':Neot reveal<CR>', { noremap = true, silent = true })
 
+-- NeoGit
+vim.api.nvim_set_keymap('n', '<leader>ng', ':Neogit<CR>', { noremap = true, silent = true })
+
 -- copilot
 vim.keymap.set('i', '<right>', 'copilot#Accept("\\<CR>")', {
   expr = true,
   replace_keycodes = false,
 })
 vim.g.copilot_no_tab_map = true
+
+-- Trouble
+vim.keymap.set('n', '<leader>ot', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, noremap = true })

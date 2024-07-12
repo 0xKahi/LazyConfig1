@@ -54,10 +54,14 @@ return {
       set_highlight({ '@lsp.type.parameter' }, { fg = colors.fg, underline = true })
       -- light blue
       set_highlight({ '@string' }, { fg = '#a4d6ff' })
-      -- light purple
+      -- tky purple
+      set_highlight({ 'NeoTreeGitModified' }, { fg = colors.magenta })
+      -- light class purple
       set_highlight({ '@lsp.typemod.class.defaultLibrary.typescriptreact', '@lsp.type.class' }, { fg = '#b4baff' })
-      -- green
+      -- tky green1
       set_highlight({ '@lsp.type.enumMember' }, '@Property')
+      -- tky green
+      set_highlight({ 'NeoTreeGitUntracked' }, { fg = colors.green })
     end,
     plugins = {
       auto = true,
