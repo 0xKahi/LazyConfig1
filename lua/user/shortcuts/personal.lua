@@ -31,6 +31,34 @@ end, {
   desc = 'Convert px to rem',
 })
 
+vim.api.nvim_create_user_command('MsToSec', function(opts)
+  -- Get the px value from command arguments or prompt the user
+  local ms = tonumber(opts.args)
+  if not ms then
+    ms = tonumber(vim.fn.input('Enter Ms: '))
+  end
+
+  -- Check if we have a valid number
+  if not ms then
+    print('Invalid input. Please enter a number.')
+    return
+  end
+
+  -- Convert px to rem using our imported function
+  local sec, error = converters.msToSec(ms)
+
+  if error then
+    print(error)
+    return
+  end
+
+  -- Print the result
+  print(string.format('%dms is equal to %dsec', ms, sec))
+end, {
+  nargs = '?',
+  desc = 'Convert ms to sec',
+})
+
 local inspector = require('utils.inspector')
 vim.api.nvim_create_user_command('CheckMapping', function(opts)
   local args = vim.split(opts.args, '%s+')

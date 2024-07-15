@@ -47,3 +47,6 @@ vim.g.copilot_no_tab_map = true
 
 -- Trouble
 vim.keymap.set('n', '<leader>ot', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, noremap = true })
+
+-- gitsigns
+vim.keymap.set('n', '<leader>gbl', ':Gitsigns blame<cr>', { silent = true, noremap = true })

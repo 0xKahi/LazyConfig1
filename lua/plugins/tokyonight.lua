@@ -20,7 +20,8 @@ return {
 
     -- Change the "hint" color to the "orange" color, and make the "error" color bright red
     on_colors = function(colors)
-      colors.border_highlight = '#8cf67a'
+      --colors.border_highlight = '#8cf67a'
+      colors.border_highlight = '#00FF9C'
     end,
 
     on_highlights = function(highlights, colors)

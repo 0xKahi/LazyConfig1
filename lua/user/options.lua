@@ -13,6 +13,8 @@ vim.opt.undofile = true
 
 --vim.opt.smarttab = true
 -- vim.opt.cindent = true
+vim.opt.shell = 'zsh'
+
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
