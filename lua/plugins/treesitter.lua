@@ -24,6 +24,7 @@ return {
         'regex',
         'python',
         'sql',
+        'graphql',
       },
 
       -- Install parsers synchronously (only applied to `ensure_installed`)

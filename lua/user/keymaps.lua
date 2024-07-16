@@ -12,6 +12,9 @@ vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
 vim.keymap.set('n', '<leader>lg', telescope.live_grep, {})
 vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[S]earch current [W]ord' })
 
+-- Telescope with lsp
+vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', { silent = false, noremap = true })
+
 -- Conform (Formatter)
 local conform = require('conform')
 -- Keybinding for manual formatting
