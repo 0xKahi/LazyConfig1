@@ -35,6 +35,7 @@ vim.opt.colorcolumn = ''
 vim.opt.clipboard:append('unnamedplus')
 
 vim.opt.conceallevel = 1
+vim.opt.linespace = 5
 
 -- Highlight settings
 vim.cmd('highlight Visual cterm=NONE gui=NONE guibg=#311b92')

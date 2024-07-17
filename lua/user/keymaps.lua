@@ -1,4 +1,4 @@
--- personal keymaps
+-- personal keymap
 vim.api.nvim_set_keymap('i', 'kj', '<ESC>', { noremap = true })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
@@ -7,13 +7,28 @@ vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
 
 -- Telescope
 local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', telescope.git_files, {})
-vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
-vim.keymap.set('n', '<leader>lg', telescope.live_grep, {})
-vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[S]earch current [W]ord' })
-
--- Telescope with lsp
-vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', { silent = false, noremap = true })
+vim.keymap.set('n', '<C-p>', telescope.git_files, { desc = 'find files in git', noremap = true })
+vim.keymap.set(
+  'n',
+  '<C-f>',
+  telescope.current_buffer_fuzzy_find,
+  { desc = 'fuzzy find in current buffer', noremap = true }
+)
+vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind all [F]iles', noremap = true })
+vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind [G]rep in directory', noremap = true })
+vim.keymap.set(
+  'n',
+  '<leader>fw',
+  telescope.grep_string,
+  { desc = '[F]ind current [W]ord in directory', noremap = true }
+)
+vim.keymap.set('n', '<leader>fp', telescope.oldfiles, { desc = '[F]ind [P]ast files', silent = false, noremap = true })
+vim.keymap.set(
+  'n',
+  '<leader>fr',
+  ':Telescope lsp_references<CR>',
+  { desc = '[F]ind lsp [R]eference', silent = false, noremap = true }
+)
 
 -- Conform (Formatter)
 local conform = require('conform')
@@ -26,20 +41,32 @@ vim.keymap.set({ 'n', 'v' }, '<leader>fm', function()
     async = false,
     timeout_ms = 500,
   })
-end, { desc = 'Format file or range (in visual mode)' })
+end, { desc = '[F]or[M]at file or range (in visual mode)' })
 
 -- Harpoon
-local harpoonMark = require('harpoon.mark')
-local harpoonUi = require('harpoon.ui')
-
-vim.keymap.set('n', '<leader>anc', harpoonMark.add_file)
-vim.keymap.set('n', '<leader>ha', harpoonUi.toggle_quick_menu)
+local harpoon = require('harpoon')
+-- REQUIRED
+harpoon:setup()
+vim.keymap.set('n', '<leader>anc', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<leader>ha', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
 
 -- NeoTree
-vim.api.nvim_set_keymap('n', '<leader>oe', ':Neot reveal<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>oe',
+  ':Neot reveal<CR>',
+  { desc = '[O]pen [E]xplorer', noremap = true, silent = true }
+)
 
--- NeoGit
-vim.api.nvim_set_keymap('n', '<leader>ng', ':Neogit<CR>', { noremap = true, silent = true })
+-- LazyGit
+vim.api.nvim_set_keymap('n', '<leader>lg', '<cmd>LazyGit<CR>', { desc = '[L]azy [G]it', noremap = true, silent = true })
+
+-- Oil
+vim.keymap.set('n', '<leader>oo', '<CMD>Oil --float<CR>', { desc = '[O]pen [O]il window', noremap = true })
 
 -- copilot
 vim.keymap.set('i', '<right>', 'copilot#Accept("\\<CR>")', {
@@ -49,7 +76,12 @@ vim.keymap.set('i', '<right>', 'copilot#Accept("\\<CR>")', {
 vim.g.copilot_no_tab_map = true
 
 -- Trouble
-vim.keymap.set('n', '<leader>ot', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, noremap = true })
+vim.keymap.set(
+  'n',
+  '<leader>ot',
+  '<cmd>Trouble diagnostics toggle<cr>',
+  { desc = '[O]pen [T]rouble', silent = true, noremap = true }
+)
 
 -- gitsigns
-vim.keymap.set('n', '<leader>gbl', ':Gitsigns blame<cr>', { silent = true, noremap = true })
+vim.keymap.set('n', '<leader>ob', ':Gitsigns blame<cr>', { desc = '[O]pen git [B]lame', silent = true, noremap = true })
