@@ -37,6 +37,22 @@ vim.keymap.set(
   telescope.treesitter,
   { desc = '[T]oggle [T]reesitter', silent = false, noremap = true }
 )
+vim.keymap.set(
+  'n',
+  '<leader>sh',
+  telescope.search_history,
+  { desc = '[S]earch [H]istory', silent = false, noremap = true }
+)
+
+-- vim.keymap.set(
+--   'n',
+--   '<leader>tu',
+--   '<cmd>Telescope undo<CR>',
+--   { desc = '[T]elescope [U]ndo', silent = true, noremap = true }
+-- )
+
+-- undotree
+vim.keymap.set('n', '<leader>ut', vim.cmd.UndotreeToggle, { desc = '[U]ndo [T]ree', silent = true, noremap = true })
 
 -- Conform (Formatter)
 local conform = require('conform')
@@ -58,12 +74,13 @@ harpoonConfig.setup()
 
 local harpoon = require('harpoon')
 
-vim.keymap.set('n', '<leader>anc', function()
+vim.keymap.set('n', '<leader>ac', function()
   harpoon:list():add()
-end)
+end, { desc = '[A]n[C]hor current file', silent = false, noremap = true })
+
 vim.keymap.set('n', '<leader>ha', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
+end, { desc = '[HA]rpoon', silent = true, noremap = true })
 
 -- NeoTree
 vim.api.nvim_set_keymap(

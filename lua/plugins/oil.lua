@@ -28,6 +28,7 @@ return {
         ['q'] = 'actions.close',
         ['<C-p>'] = false,
         ['<S-p>'] = 'actions.preview',
+        ['<Space>'] = 'actions.select',
       },
       -- Configuration for the floating keymaps help window
       keymaps_help = {

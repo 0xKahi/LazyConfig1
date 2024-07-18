@@ -11,17 +11,18 @@ local function get_icon(filename)
 end
 
 local function get_highlight_color(hl_group)
-  local hl = vim.api.nvim_get_hl(0, { name = hl_group, link = false })
-  return hl.fg and string.format('#%06x', hl.fg) or 'NONE'
+  local hl = vim.api.nvim_get_hl(0, { name = hl_group, link = false }) -- gets the highlight attributes for a given highlight group
+  return hl.fg and string.format('#%06x', hl.fg) or 'NONE' -- if highlight attr exist return as a 6-digit hex color, else return NONE
 end
 
 local function update_icons(bufnr, list)
-  local ns_id = vim.api.nvim_create_namespace('harpoon_icons')
-  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+  local ns_id = vim.api.nvim_create_namespace('harpoon_icons') -- create unique namespace for icons
+  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1) -- clear any existing icons in buffer (icons kept duplicating?)
 
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
   for i, line in ipairs(lines) do
+    -- Get the filename from full path && icon
     local filename = vim.fn.fnamemodify(line, ':t')
     local icon, icon_color_name = get_icon(filename)
 
