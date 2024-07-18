@@ -14,7 +14,9 @@ vim.keymap.set(
   telescope.current_buffer_fuzzy_find,
   { desc = 'fuzzy find in current buffer', noremap = true }
 )
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind all [F]iles', noremap = true })
+vim.keymap.set('n', '<leader>ff', function()
+  telescope.find_files({ no_ignore = false, hidden = true })
+end, { desc = '[F]ind all [F]iles', noremap = true })
 vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind [G]rep in directory', noremap = true })
 vim.keymap.set(
   'n',
@@ -28,6 +30,12 @@ vim.keymap.set(
   '<leader>fr',
   ':Telescope lsp_references<CR>',
   { desc = '[F]ind lsp [R]eference', silent = false, noremap = true }
+)
+vim.keymap.set(
+  'n',
+  '<leader>tt',
+  telescope.treesitter,
+  { desc = '[T]oggle [T]reesitter', silent = false, noremap = true }
 )
 
 -- Conform (Formatter)
@@ -44,9 +52,12 @@ vim.keymap.set({ 'n', 'v' }, '<leader>fm', function()
 end, { desc = '[F]or[M]at file or range (in visual mode)' })
 
 -- Harpoon
+-- personal config to setup webdev icons
+local harpoonConfig = require('config.harpoon')
+harpoonConfig.setup()
+
 local harpoon = require('harpoon')
--- REQUIRED
-harpoon:setup()
+
 vim.keymap.set('n', '<leader>anc', function()
   harpoon:list():add()
 end)

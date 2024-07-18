@@ -25,6 +25,7 @@ return {
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-cmdline' },
       { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'windwp/nvim-ts-autotag' },
       { 'onsails/lspkind.nvim' },
     },
@@ -40,11 +41,21 @@ return {
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_Select),
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_Select),
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        }),
       })
 
       local lspkind = require('lspkind')
+      local luasnip = require('luasnip')
       cmp.setup({
+        -- copied might one to remove
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
 
         window = {
           completion = cmp.config.window.bordered(),
@@ -61,6 +72,7 @@ return {
           { name = 'buffer', max_item_count = 5 }, -- text within current buffer
           { name = 'path', max_item_count = 3 }, -- file system paths
           { name = 'luasnip', max_item_count = 3 }, -- snippets
+          { name = 'neorg', max_item_count = 3 }, -- test?
         }),
 
         experimental = {

@@ -7,6 +7,9 @@ vim.g.maplocalleader = ' '
 vim.opt.nu = true
 vim.opt.rnu = true
 
+vim.opt.title = true
+vim.opt.showcmd = true
+
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.undofile = true
@@ -18,6 +21,8 @@ vim.opt.shell = 'zsh'
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+
+vim.opt.title = true
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
