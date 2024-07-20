@@ -6,6 +6,8 @@ local telescope = require('telescope.builtin')
 local telescope_commands = {
   dg = { func = telescope.diagnostics, desc = 'Diagnostics' },
   ['git status'] = { func = telescope.git_status, desc = 'Git Status' },
+  ['doc symb'] = { func = telescope.git_status, desc = 'Lists LSP document symbols in the current buffer' },
+  --noice = { func = ':Telescope noice<CR>', desc = 'noice' },
 }
 
 -- Create custom command for Telescope

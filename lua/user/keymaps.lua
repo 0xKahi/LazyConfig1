@@ -2,6 +2,7 @@
 vim.api.nvim_set_keymap('i', 'kj', '<ESC>', { noremap = true })
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
+vim.keymap.set('n', '<leader>gb', ':bp <CR>', { noremap = true, desc = '[G]o [B]ack' })
 
 --- Plugin Remaps --
 
@@ -27,29 +28,10 @@ vim.keymap.set(
 vim.keymap.set('n', '<leader>fp', telescope.oldfiles, { desc = '[F]ind [P]ast files', silent = false, noremap = true })
 vim.keymap.set(
   'n',
-  '<leader>fr',
-  ':Telescope lsp_references<CR>',
-  { desc = '[F]ind lsp [R]eference', silent = false, noremap = true }
+  '<leader>pp',
+  telescope.resume,
+  { desc = '[P]ast telescope [P]ickers', silent = false, noremap = true }
 )
-vim.keymap.set(
-  'n',
-  '<leader>tt',
-  telescope.treesitter,
-  { desc = '[T]oggle [T]reesitter', silent = false, noremap = true }
-)
-vim.keymap.set(
-  'n',
-  '<leader>sh',
-  telescope.search_history,
-  { desc = '[S]earch [H]istory', silent = false, noremap = true }
-)
-
--- vim.keymap.set(
---   'n',
---   '<leader>tu',
---   '<cmd>Telescope undo<CR>',
---   { desc = '[T]elescope [U]ndo', silent = true, noremap = true }
--- )
 
 -- undotree
 vim.keymap.set('n', '<leader>ut', vim.cmd.UndotreeToggle, { desc = '[U]ndo [T]ree', silent = true, noremap = true })
@@ -69,8 +51,8 @@ end, { desc = '[F]or[M]at file or range (in visual mode)' })
 
 -- Harpoon
 -- personal config to setup webdev icons
-local harpoonConfig = require('config.harpoon')
-harpoonConfig.setup()
+local harpoon_config = require('config.harpoon')
+harpoon_config.setup()
 
 local harpoon = require('harpoon')
 
@@ -82,34 +64,41 @@ vim.keymap.set('n', '<leader>ha', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = '[HA]rpoon', silent = true, noremap = true })
 
+-- vim.keymap.set('n', '<leader>sh', function()
+--   harpoon_config.toggle_telescope(harpoon:list())
+-- end, { desc = 'Open harpoon window' })
+
 -- NeoTree
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>oe',
-  ':Neot reveal<CR>',
-  { desc = '[O]pen [E]xplorer', noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>oe', ':Neot reveal<CR>', { desc = '[O]pen [E]xplorer', noremap = true, silent = true })
 
 -- LazyGit
-vim.api.nvim_set_keymap('n', '<leader>lg', '<cmd>LazyGit<CR>', { desc = '[L]azy [G]it', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>lg', '<cmd>LazyGit<CR>', { desc = '[L]azy [G]it', noremap = true, silent = true })
 
 -- Oil
 vim.keymap.set('n', '<leader>oo', '<CMD>Oil --float<CR>', { desc = '[O]pen [O]il window', noremap = true })
 
--- copilot
-vim.keymap.set('i', '<right>', 'copilot#Accept("\\<CR>")', {
+vim.keymap.set('i', '<right>', function()
+  if vim.fn['copilot#GetDisplayedSuggestion']().text ~= '' then
+    vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](), 'i', true)
+    return ''
+  else
+    return '<right>'
+  end
+end, {
   expr = true,
-  replace_keycodes = false,
+  replace_keycodes = true,
+  silent = true,
 })
-vim.g.copilot_no_tab_map = true
 
--- Trouble
-vim.keymap.set(
-  'n',
-  '<leader>ot',
-  '<cmd>Trouble diagnostics toggle<cr>',
-  { desc = '[O]pen [T]rouble', silent = true, noremap = true }
-)
+vim.g.copilot_no_tab_map = true
 
 -- gitsigns
 vim.keymap.set('n', '<leader>ob', ':Gitsigns blame<cr>', { desc = '[O]pen git [B]lame', silent = true, noremap = true })
+
+-- noice
+vim.keymap.set(
+  'n',
+  '<leader>nn',
+  ':Noice dismiss<CR>',
+  { desc = '[N]o [N]otification', silent = false, noremap = true }
+)

@@ -17,6 +17,11 @@ return {
         max_height = 40,
         preview_split = 'right',
         border = 'rounded',
+        win_options = {
+          wrap = true,
+          winblend = 0,
+          signcolumn = 'yes',
+        },
       },
       win_options = {
         wrap = true,

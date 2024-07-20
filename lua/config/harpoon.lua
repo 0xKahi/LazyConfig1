@@ -51,6 +51,13 @@ function M.setup()
 
   harpoon.ui.toggle_quick_menu = function(self, list, opts)
     original_toggle(self, list, opts)
+
+    -- config for changing height (TODO: make changes to row and col for screen positioning)
+    -- if self.win_id and vim.api.nvim_win_is_valid(self.win_id) then
+    --   vim.api.nvim_win_set_height(self.win_id, 16)
+    --   vim.api.nvim_win_set_var(self.win_id, 'row', math.floor(((vim.o.lines - 16) / 2) - 1))
+    -- end
+
     if self.bufnr and vim.api.nvim_buf_is_valid(self.bufnr) then
       update_icons(self.bufnr, list)
 
@@ -68,6 +75,26 @@ function M.setup()
       })
     end
   end
+end
+
+-- basic telescope configuration
+function M.toggle_telescope(harpoon_files)
+  local conf = require('telescope.config').values
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  require('telescope.pickers')
+    .new({}, {
+      prompt_title = 'Harpoon',
+      finder = require('telescope.finders').new_table({
+        results = file_paths,
+      }),
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+    })
+    :find()
 end
 
 return M

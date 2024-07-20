@@ -17,5 +17,30 @@ return {
       timeout_ms = 500,
       lsp_fallback = true,
     },
+    formatters = {
+      prettier = {
+        condition = function(ctx)
+          return vim.fs.find(
+            {
+              '.prettierrc',
+              '.prettierrc.json',
+              '.prettierrc.yml',
+              '.prettierrc.yaml',
+              '.prettierrc.json5',
+              '.prettierrc.js',
+              '.prettierrc.cjs',
+              'prettier.config.js',
+              'prettier.config.cjs',
+            },
+            { path = ctx.filename, upward = true }
+          )[1]
+        end,
+      },
+      biome = {
+        condition = function(ctx)
+          return vim.fs.find({ 'biome.json', 'biome.jsonc' }, { path = ctx.filename, upward = true })[1]
+        end,
+      },
+    },
   },
 }
