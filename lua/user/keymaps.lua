@@ -32,6 +32,12 @@ vim.keymap.set(
   telescope.resume,
   { desc = '[P]ast telescope [P]ickers', silent = false, noremap = true }
 )
+vim.keymap.set(
+  'n',
+  '<leader>nc',
+  '<cmd>Telescope neoclip<CR>',
+  { desc = '[N]eo [C]lip', silent = false, noremap = true }
+)
 
 -- undotree
 vim.keymap.set('n', '<leader>ut', vim.cmd.UndotreeToggle, { desc = '[U]ndo [T]ree', silent = true, noremap = true })
