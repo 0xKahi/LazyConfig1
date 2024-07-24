@@ -58,6 +58,12 @@ function M.setup()
     --   vim.api.nvim_win_set_var(self.win_id, 'row', math.floor(((vim.o.lines - 16) / 2) - 1))
     -- end
 
+    -- set relative line numbers
+    if self.win_id and vim.api.nvim_win_is_valid(self.win_id) then
+      vim.api.nvim_set_option_value('number', true, { win = self.win_id })
+      vim.api.nvim_set_option_value('relativenumber', true, { win = self.win_id })
+    end
+
     if self.bufnr and vim.api.nvim_buf_is_valid(self.bufnr) then
       update_icons(self.bufnr, list)
 

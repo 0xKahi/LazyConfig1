@@ -29,6 +29,23 @@ return {
       { 'onsails/lspkind.nvim' },
     },
     config = function()
+      vim.diagnostic.config({
+        virtual_text = {
+          source = 'if_many',
+          prefix = '● ',
+        },
+        update_in_insert = true,
+        underline = true,
+        severity_sort = true,
+        float = {
+          focusable = false,
+          style = 'minimal',
+          border = 'rounded',
+          source = 'if_many',
+          header = '',
+          prefix = '',
+        },
+      })
       -- Here is where you configure the autocompletion settings.
       local lsp = require('lsp-zero')
       lsp.extend_cmp()
@@ -119,7 +136,7 @@ return {
       { 'williamboman/mason-lspconfig.nvim' },
       { 'nvim-telescope/telescope.nvim' },
     },
-    config = function()
+    config = function(_, opts)
       -- This is where all the LSP shenanigans will live
       local lsp = require('lsp-zero')
       lsp.extend_lspconfig()
