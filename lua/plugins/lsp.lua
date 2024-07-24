@@ -32,13 +32,14 @@ return {
       vim.diagnostic.config({
         virtual_text = {
           source = 'if_many',
-          prefix = '● ',
+          -- prefix = '● ',
+          prefix = ' ',
         },
-        update_in_insert = true,
+        update_in_insert = false,
         underline = true,
         severity_sort = true,
         float = {
-          focusable = false,
+          focusable = true,
           style = 'minimal',
           border = 'rounded',
           source = 'if_many',
@@ -96,14 +97,23 @@ return {
         -- Enable pictogram icons for lsp/autocompletion
         formatting = {
           expandable_indicator = true,
-          format = lspkind.cmp_format({
-            mode = 'symbol_text',
-            maxwidth = 50,
-            ellipsis_char = '...',
-            symbol_map = {
-              Copilot = '',
-            },
-          }),
+          format = function(entry, item)
+            local color_item = require('nvim-highlight-colors').format(entry, { kind = item.kind })
+            item = lspkind.cmp_format({
+              mode = 'symbol_text',
+              maxwidth = 50,
+              ellipsis_char = '...',
+              symbol_map = {
+                Copilot = '',
+              },
+            })(entry, item)
+
+            if color_item.abbr_hl_group then
+              item.kind_hl_group = color_item.abbr_hl_group
+              item.kind = color_item.abbr
+            end
+            return item
+          end,
         },
       })
 

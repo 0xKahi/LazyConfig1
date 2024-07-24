@@ -22,9 +22,15 @@ return {
     on_colors = function(colors)
       --colors.border_highlight = '#8cf67a'
       colors.border_highlight = '#00FF9C'
+      colors.hint = '#41a6b5'
     end,
 
     on_highlights = function(highlights, colors)
+      highlights['DiagnosticVirtualTextError'] = { bg = '', fg = colors.error, bold = true } -- Used for "Error" diagnostic virtual text
+      highlights['DiagnosticVirtualTextWarn'] = { bg = '', fg = colors.warning, bold = true } -- Used for "Warning" diagnostic virtual text
+      highlights['DiagnosticVirtualTextInfo'] = { bg = '', fg = colors.info, bold = true } -- Used for "Information" diagnostic virtual text
+      highlights['DiagnosticVirtualTextHint'] = { bg = '', fg = colors.hint, bold = true } -- Used for "Hint" diagnostic virtual text
+
       local function set_highlight(groups, style)
         for _, group in ipairs(groups) do
           highlights[group] = style
